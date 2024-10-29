@@ -79,15 +79,15 @@ class FirstFragment : Fragment(), Removable{
 
     private fun init(view: View) {
         db = DBHelper(this.requireContext())
-        tasks = db.readTasks()
+//        tasks = db.readTasks()
         toolbar = view.findViewById(R.id.toolbar)
         taskET = view.findViewById(R.id.taskET)
         saveBTN = view.findViewById(R.id.btn)
         clearBTN = view.findViewById(R.id.clearDB)
         recRV = view.findViewById(R.id.recRV)
         recRV.layoutManager = LinearLayoutManager(this.requireContext())
-        adapter = TaskRecyclerAdapter(tasks, requireContext())
-        recRV.adapter = adapter
+//        adapter = TaskRecyclerAdapter(tasks, requireContext())
+//        recRV.adapter = adapter
         updateData()
     }
 
