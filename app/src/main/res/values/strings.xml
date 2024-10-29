@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AndroidFragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addTask">Добавить заметку</string>
+    <string name="clearDB">Очистить базу данных</string>
+</resources>

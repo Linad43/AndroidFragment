@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:gravity="end">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3">
+
+        <TextView
+            android:id="@+id/textTV"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="5dp"
+            android:text="Текст заметки"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="2"
+            android:layout_gravity="end|center_vertical" />
+
+        <TextView
+            android:id="@+id/dataCreateTV"
+            android:textColor="@color/gray"
+            android:layout_columnWeight="@integer/material_motion_duration_long_2"
+            android:layout_width="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="dataCreate" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/dataAcceptTV"-->
+<!--            android:textColor="@color/gray"-->
+<!--            android:layout_columnWeight="@integer/material_motion_duration_long_2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_gravity="fill_horizontal"-->
+<!--            android:text="dataAccept" />-->
+    </GridLayout>
+
+</LinearLayout>
