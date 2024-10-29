@@ -59,19 +59,19 @@ class FirstFragment : Fragment(), Removable{
         adapter.setOnTasksClickListner(object :
             TaskRecyclerAdapter.OnTasksClickListener {
             override fun onTaskClick(task: Task, position: Int) {
-                val builder = AlertDialog.Builder(
-                    requireActivity()
-                )
-                builder
-                    .setTitle("Внимание!")
-                    .setMessage("Удалить заметку?")
-                    .setPositiveButton("Да") { _, _ ->
-                        db.deleteTask(task)
-                        updateData()
-                    }
-                    .setNegativeButton("Нет", null)
-                    .create()
-                    .show()
+//                val builder = AlertDialog.Builder(
+//                    requireActivity()
+//                )
+//                builder
+//                    .setTitle("Внимание!")
+//                    .setMessage("Удалить заметку?")
+//                    .setPositiveButton("Да") { _, _ ->
+//                        db.deleteTask(task)
+//                        updateData()
+//                    }
+//                    .setNegativeButton("Нет", null)
+//                    .create()
+//                    .show()
             }
         })
 
