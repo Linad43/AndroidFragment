@@ -7,19 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
 
 
-class FirstFragment : Fragment(), Removable{
+class FirstFragment : Fragment(), Removable {
 
     private lateinit var db: DBHelper
     private var tasks = arrayListOf<Task>()
+    private lateinit var onFragmentDataListner: OnFragmentDataListner
     private lateinit var toolbar: Toolbar
     private lateinit var taskET: EditText
     private lateinit var saveBTN: Button
@@ -56,9 +55,16 @@ class FirstFragment : Fragment(), Removable{
             db.removeAll()
             updateData()
         }
+        TaskRecyclerAdapter(tasks, requireContext())
+            .setOnTasksClickListner(object : TaskRecyclerAdapter.OnTasksClickListener {
+                override fun onTaskClick(task: Task, position: Int) {
+                    onFragmentDataListner.onData(task)
+                }
+            })
         adapter.setOnTasksClickListner(object :
             TaskRecyclerAdapter.OnTasksClickListener {
             override fun onTaskClick(task: Task, position: Int) {
+                onFragmentDataListner.onData(task)
 //                val builder = AlertDialog.Builder(
 //                    requireActivity()
 //                )
@@ -88,6 +94,7 @@ class FirstFragment : Fragment(), Removable{
         recRV.layoutManager = LinearLayoutManager(this.requireContext())
 //        adapter = TaskRecyclerAdapter(tasks, requireContext())
 //        recRV.adapter = adapter
+        onFragmentDataListner = requireActivity() as OnFragmentDataListner
         updateData()
     }
 
@@ -111,11 +118,23 @@ class FirstFragment : Fragment(), Removable{
     private fun updateData() {
         tasks = db.readTasks()
         adapter = TaskRecyclerAdapter(tasks, requireContext())
-//        adapter.notifyDataSetChanged()
+
         recRV.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     override fun remove(task: Task) {
         db.deleteTask(task)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val newTask: Task? = arguments?.getSerializable(Task::class.java.simpleName) as Task?
+        if (newTask != null) {
+            db.updateTask(newTask)
+            updateData()
+//            tasks.add(newTask.id + 1, newTask)
+//            tasks.removeAt(newTask.id)
+        }
     }
 }

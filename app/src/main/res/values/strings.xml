@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addTask">Добавить заметку</string>
     <string name="clearDB">Очистить базу данных</string>
+    <string name="save">Сохранить изменения</string>
 </resources>
