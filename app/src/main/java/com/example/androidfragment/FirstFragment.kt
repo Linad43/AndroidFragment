@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
@@ -18,6 +19,7 @@ import java.time.LocalDate
 
 class FirstFragment : Fragment(), Removable{
 
+    private lateinit var main:FrameLayout
     private lateinit var db: DBHelper
     private var tasks = arrayListOf<Task>()
     private lateinit var toolbar: Toolbar
@@ -72,6 +74,7 @@ class FirstFragment : Fragment(), Removable{
                     .setNegativeButton("Нет", null)
                     .create()
                     .show()
+
             }
         })
 
@@ -79,14 +82,15 @@ class FirstFragment : Fragment(), Removable{
 
     private fun init(view: View) {
         db = DBHelper(this.requireContext())
-//        tasks = db.readTasks()
+        tasks = db.readTasks()
+        main = view.findViewById(R.id.main)
         toolbar = view.findViewById(R.id.toolbar)
         taskET = view.findViewById(R.id.taskET)
         saveBTN = view.findViewById(R.id.btn)
         clearBTN = view.findViewById(R.id.clearDB)
         recRV = view.findViewById(R.id.recRV)
         recRV.layoutManager = LinearLayoutManager(this.requireContext())
-//        adapter = TaskRecyclerAdapter(tasks, requireContext())
+        adapter = TaskRecyclerAdapter(tasks, requireContext())
 //        recRV.adapter = adapter
         updateData()
     }
@@ -109,9 +113,16 @@ class FirstFragment : Fragment(), Removable{
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateData() {
-        tasks = db.readTasks()
-        adapter = TaskRecyclerAdapter(tasks, requireContext())
-//        adapter.notifyDataSetChanged()
+        tasks.clear()
+        val buf = db.readTasks()
+        buf.forEach{
+            tasks.add(it)
+        }
+//        tasks = db.readTasks()
+//        adapter = TaskRecyclerAdapter(tasks, requireContext())
+        adapter.notifyDataSetChanged()
+        recRV.isFocusable = true
+        recRV.isClickable = true
         recRV.adapter = adapter
     }
 
