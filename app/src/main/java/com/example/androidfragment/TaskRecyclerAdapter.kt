@@ -59,4 +59,10 @@ class TaskRecyclerAdapter(
     fun setOnTasksClickListner(onTasksClickListener: OnTasksClickListener) {
         this.onTasksClickListener = onTasksClickListener
     }
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(list:ArrayList<Task>){
+        tasks.clear()
+        tasks.addAll(list)
+        notifyDataSetChanged()
+    }
 }

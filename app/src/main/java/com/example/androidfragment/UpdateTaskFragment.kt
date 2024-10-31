@@ -36,7 +36,7 @@ class UpdateTaskFragment : Fragment(), OnFragmentDataListner {
         textET.setText(task.text)
         saveBTN.setOnClickListener {
             if (textET.text.isNotEmpty()) {
-                val newTask = Task(task.id, textET.text.toString(), false, LocalDate.now().toString())
+                val newTask = Task(task.id, textET.text.toString(), task.flag, LocalDate.now().toString())
                 onData(newTask)
             }
         }

@@ -55,12 +55,6 @@ class FirstFragment : Fragment(), Removable {
             db.removeAll()
             updateData()
         }
-        TaskRecyclerAdapter(tasks, requireContext())
-            .setOnTasksClickListner(object : TaskRecyclerAdapter.OnTasksClickListener {
-                override fun onTaskClick(task: Task, position: Int) {
-                    onFragmentDataListner.onData(task)
-                }
-            })
         adapter.setOnTasksClickListner(object :
             TaskRecyclerAdapter.OnTasksClickListener {
             override fun onTaskClick(task: Task, position: Int) {
@@ -92,7 +86,7 @@ class FirstFragment : Fragment(), Removable {
         clearBTN = view.findViewById(R.id.clearDB)
         recRV = view.findViewById(R.id.recRV)
         recRV.layoutManager = LinearLayoutManager(this.requireContext())
-//        adapter = TaskRecyclerAdapter(tasks, requireContext())
+        adapter = TaskRecyclerAdapter(tasks, requireContext())
 //        recRV.adapter = adapter
         onFragmentDataListner = requireActivity() as OnFragmentDataListner
         updateData()
@@ -116,11 +110,19 @@ class FirstFragment : Fragment(), Removable {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateData() {
+//        tasks.clear()
+//        val buf = db.readTasks()
+//        buf.forEach{
+//            tasks.add(it)
+//        }
         tasks = db.readTasks()
-        adapter = TaskRecyclerAdapter(tasks, requireContext())
+//        adapter = TaskRecyclerAdapter(tasks, requireContext())
+        adapter.update(tasks)
+//        adapter.notifyDataSetChanged()
+//        recRV.isFocusable = true
+//        recRV.isClickable = true
 
         recRV.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
 
     override fun remove(task: Task) {
